@@ -1,0 +1,341 @@
+/* ── InputScreen.css ─────────────────────────────────────────────────────────
+   Mobile-first. Warm dark palette. Pakistani SMB audience.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600;700&display=swap');
+
+/* ── Reset / Root ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.is-root {
+  min-height: 100dvh;
+  background: radial-gradient(ellipse at 60% 0%, #1a3a2a 0%, #0d1f17 55%, #080f0b 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem 2.5rem;
+  font-family: 'Inter', sans-serif;
+  color: #e8f5e9;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+.is-card {
+  width: 100%;
+  max-width: 560px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+  padding: 2rem 1.75rem 2.25rem;
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.is-header { text-align: center; margin-bottom: 1.75rem; }
+
+.is-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.is-logo-dot {
+  width: 10px; height: 10px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #22c55e;
+}
+
+.is-logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+
+.is-logo-text span { color: #22c55e; }
+
+.is-tagline {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.01em;
+}
+
+/* ── Language Toggle ──────────────────────────────────────────────────────── */
+.is-lang-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.is-lang-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.is-lang-toggle {
+  display: flex;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.is-lang-btn {
+  padding: 0.3rem 0.9rem;
+  border-radius: 100px;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.01em;
+}
+
+.is-lang-btn.active {
+  background: #22c55e;
+  color: #0d1f17;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
+}
+
+.is-lang-btn.urdu { font-family: 'Noto Nastaliq Urdu', serif; font-size: 0.88rem; }
+
+/* ── Textarea wrapper ─────────────────────────────────────────────────────── */
+.is-textarea-wrap {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.is-textarea {
+  width: 100%;
+  min-height: 160px;
+  max-height: 300px;
+  resize: vertical;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 1rem 1rem 3rem;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: #e8f5e9;
+  caret-color: #22c55e;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.is-textarea.rtl {
+  direction: rtl;
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  text-align: right;
+  padding: 1rem 1rem 3rem;
+}
+
+.is-textarea:focus {
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.is-textarea::placeholder { color: rgba(255,255,255,0.22); }
+
+/* Char count */
+.is-char-count {
+  position: absolute;
+  bottom: 0.7rem;
+  left: 1rem;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.25);
+  pointer-events: none;
+}
+
+.is-char-count.rtl { left: auto; right: 1rem; }
+
+/* ── Mic button ───────────────────────────────────────────────────────────── */
+.is-mic-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.is-mic-hint {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.35);
+}
+
+.is-mic-hint.rtl {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 0.85rem;
+}
+
+.is-mic-btn {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 197, 94, 0.4);
+  background: rgba(34, 197, 94, 0.08);
+  color: #22c55e;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  transition: all 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.is-mic-btn:hover:not(:disabled) {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(34, 197, 94, 0.7);
+  transform: scale(1.06);
+}
+
+.is-mic-btn.listening {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.7);
+  color: #ef4444;
+  animation: mic-pulse 1.4s ease-in-out infinite;
+}
+
+.is-mic-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Ripple ring when listening */
+.is-mic-btn.listening::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  animation: ripple 1.4s ease-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
+  50%       { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+@keyframes ripple {
+  0%   { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.4);  opacity: 0; }
+}
+
+/* ── Error banner ─────────────────────────────────────────────────────────── */
+.is-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.84rem;
+  color: #fca5a5;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* ── Submit button ────────────────────────────────────────────────────────── */
+.is-submit-btn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  letter-spacing: 0.01em;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+}
+
+.is-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(34, 197, 94, 0.4);
+}
+
+.is-submit-btn:active:not(:disabled) { transform: translateY(0); }
+
+.is-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.is-submit-btn.urdu {
+  font-family: 'Noto Nastaliq Urdu', serif;
+  font-size: 1.05rem;
+}
+
+/* Spinner inside button */
+.is-spinner {
+  width: 18px; height: 18px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer note ──────────────────────────────────────────────────────────── */
+.is-footer {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.25);
+}
+
+.is-footer a {
+  color: rgba(34, 197, 94, 0.7);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.is-footer a:hover { color: #22c55e; }
+
+/* ── No-speech warning ────────────────────────────────────────────────────── */
+.is-no-speech {
+  font-size: 0.75rem;
+  color: rgba(255, 200, 80, 0.7);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Login gate (shown when no token) ────────────────────────────────────── */
+.is-gate {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+
+.is-gate h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.is-gate p  { font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .is-card { padding: 1.5rem 1.25rem 1.75rem; border-radius: 20px; }
+  .is-textarea { min-height: 140px; }
+}
