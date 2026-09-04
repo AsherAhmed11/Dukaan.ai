@@ -2,3 +2,6 @@ node_modules/
 dist/
 .env
 *.log
+
+# Local-only session context — never push to GitHub
+SESSION_CONTEXT.md
