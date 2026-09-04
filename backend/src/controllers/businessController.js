@@ -1,26 +1,49 @@
 const Business = require('../models/Business');
+const { callGemini } = require('../services/gemini');
 
 // ── POST /api/business/generate ──────────────────────────────────────────────
 /**
- * THE CORE ROUTE (stub — AI call wired in Phase 2)
+ * THE CORE ROUTE
  *
  * Receives: { text: string, language: "ur"|"en" }
- * Phase 1:  Saves rawInputText + rawInputLanguage as a draft Business.
- * Phase 2:  Will call Gemini here, merge returned JSON, then save.
+ * 1. Calls Gemini with the owner's description → gets structured business data
+ * 2. Saves rawInputText + AI-extracted fields as a draft Business
+ *
+ * Error handling:
+ *  - If Gemini returns malformed JSON, callGemini retries once automatically.
+ *  - If both attempts fail, returns 422 with a clear message.
+ *  - Auth/quota Gemini errors bubble to the global 500 handler.
  */
 const generateBusiness = async (req, res, next) => {
   try {
     const { text, language } = req.body;
 
-    // Phase 2: AI extraction goes here.
-    // const aiData = await callGemini(text, language, req.user.preferredLanguage);
+    // ── Call Gemini ────────────────────────────────────────────────────────
+    let aiData;
+    try {
+      aiData = await callGemini(text, language, req.user.preferredLanguage);
+    } catch (aiErr) {
+      // If the error is a JSON parse failure (after retry), return 422
+      if (
+        aiErr.message.includes('invalid JSON') ||
+        aiErr.message.includes('missing required field') ||
+        aiErr.message.includes('empty response')
+      ) {
+        return res.status(422).json({
+          error: 'AI could not generate valid business data from your description. Please try rephrasing.',
+          detail: aiErr.message,
+        });
+      }
+      // All other errors (auth, quota, network) → 500 via global handler
+      throw aiErr;
+    }
 
+    // ── Save draft Business ───────────────────────────────────────────────
     const business = await Business.create({
       ownerId:          req.user._id,
       rawInputText:     text,
       rawInputLanguage: language,
-      // Phase 2: spread aiData fields here
-      // ...aiData,
+      ...aiData,
       status: 'draft',
     });
 
