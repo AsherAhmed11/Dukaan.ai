@@ -86,7 +86,7 @@ function parseAIResponse(raw) {
  */
 async function callGemini(rawInputText, inputLanguage, preferredLanguage, maxRetries = 1) {
   const client = getClient();
-  const model = client.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  const model = client.getGenerativeModel({ model: 'gemini-3.6-flash' });
 
   // Interpolate preferredLanguage into system prompt
   const langLabel = preferredLanguage === 'ur' ? 'Urdu' : 'English';
@@ -103,10 +103,11 @@ async function callGemini(rawInputText, inputLanguage, preferredLanguage, maxRet
         systemInstruction: { parts: [{ text: systemInstruction }] },
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 1024,
-          responseMimeType: 'application/json', // forces JSON mode where supported
+          maxOutputTokens: 4096,
+          responseMimeType: 'application/json',
         },
       });
+
 
       const response = result.response;
       const text = response.text();
